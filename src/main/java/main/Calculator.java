@@ -17,6 +17,8 @@ public class Calculator {
     }
     public static double getMedianGrade(Student s) {
         ArrayList<Grade> grades = s.getCoursesAndGrades();
+        if (grades.isEmpty())
+            return 0.0;
         ArrayList<Integer> gradeValues = new ArrayList<>();
         for (Grade grade : grades) {
             gradeValues.add(grade.getGrade());
