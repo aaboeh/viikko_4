@@ -1,14 +1,15 @@
 package main;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileReader;
-import java.io.FileWriter;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 public class University {
-    private String FILENAME;
+    private String FILENAME = "students.data";
     private ArrayList<Student> students;
 
     public University() {
@@ -34,29 +35,26 @@ public class University {
             i++;
         }
     }
-    public void writeFile() {
-        FILENAME = "students.txt";
-        
+    public void saveStudents() {
         try {
-            BufferedWriter fileWriter = new BufferedWriter(new FileWriter(FILENAME, true));
-            fileWriter.write("\n");
-            fileWriter.close();
-            //System.out.println("Logimerkintä kirjattu");
+            ObjectOutputStream studentWriter = new ObjectOutputStream(new FileOutputStream(FILENAME));
+            studentWriter.writeObject(students);
+            studentWriter.close();
         } catch (IOException e) {
-            System.out.println("Virhe kirjoitettaessa logitiedostoa");
+            e.printStackTrace();
         }
     }
-    public void readFile() {
-        
+    public void loadStudents() {
         try {
-            BufferedReader fileReader = new BufferedReader(new FileReader(FILENAME));
-            String line;
-            while ((line = fileReader.readLine()) != null) {
-                System.out.println(line);
-            }
-            fileReader.close();
+            ObjectInputStream studentReader = new ObjectInputStream(new FileInputStream(FILENAME));
+            students = (ArrayList<Student>) studentReader.readObject();
+            studentReader.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
         } catch (IOException e) {
-            System.out.println("Virhe kirjoitettaessa logitiedostoa");
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
         }
     }
 }

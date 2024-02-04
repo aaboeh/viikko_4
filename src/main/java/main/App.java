@@ -62,12 +62,10 @@ public class App
                         System.out.println("Mediaani on " + Calculator.getMedianGrade(university.getStudents().get(studentMedian)));
                         break;
                     case 7:
-                        System.out.println("Kiitos ohjelman käytöstä.");
-                        exit = true;
+                        university.saveStudents();
                         break;
                     case 8:
-                        System.out.println("Kiitos ohjelman käytöstä.");
-                        exit = true;
+                        university.loadStudents();
                         break;
                     case 0:
                         System.out.println("Kiitos ohjelman käytöstä.");
